@@ -13,7 +13,7 @@ class Runaround {
 
   updateGame(userInput, level, player, bullets) {
     level = this.createLevel(level);
-    // player = this.createPlayer(level, player);
+    player = this.createPlayer(player);
     // userInput, player = this.movePlayer(userInput, player);
     // userInput, bullets = this.playerShoot(userInput, player);
     // level = this.spawnEnemies(leve);
@@ -43,6 +43,10 @@ class Runaround {
     }
   }
 
+  addUserInput(keyCode){
+    this.userInput.push(keyCode);
+  }
+
   createLevel(level) {
     if (!level) {
       level = new Level();
@@ -70,6 +74,8 @@ class Runaround {
     }
     return player;
   }
+
+
 }
 
 

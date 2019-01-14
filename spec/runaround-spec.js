@@ -16,6 +16,13 @@ describe('Runaround', function() {
     });
   });
 
+  describe('addUserInput', function(){
+    it('should add the user input to the userInput array', function() {
+      runaround.addUserInput(38);
+      expect(runaround.userInput).toEqual([38]);
+    });
+  });
+
   describe('updateGame', function() {
     describe('createLevel', function(){
       it('should create a new level and update properties', function() {

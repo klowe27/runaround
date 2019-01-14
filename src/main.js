@@ -14,6 +14,11 @@ $(document).ready(function() {
     runaround.userInput, runaround.level, runaround.player, runaround.bullets = runaround.updateGame(runaround.userInput, runaround.level, runaround.player, runaround.bullets);
     let summary = runaround.drawGame(runaround.level, runaround.player, runaround.bullets, true);
     output.innerHTML = summary;
-    console.log(summary);
+    // console.log(summary);
   }, interval);
+
+  document.onkeydown = function(event) {
+    event.preventDefault();
+    runaround.addUserInput(event.keyCode);
+  }
 });
