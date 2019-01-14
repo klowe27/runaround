@@ -9,12 +9,12 @@ class Enemy {
 
   getTotalByType(type){
     switch(type) {
-      case 0:
-        return 20;
-      default:
-        return 0;
+    case 0:
+      return 20;
+    default:
+      return 0;
     }
   }
 }
 
-export { Enemy }
+export { Enemy };
