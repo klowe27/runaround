@@ -8,12 +8,15 @@
     "browser": true,
     "jquery": true,
     "node": true,
-    "jasmine": true
+    "jasmine": true,
+    "es6": true
   },
     "rules": {
         "semi": 1,
         "indent": ["warn", 2],
         "no-console": "warn",
-        "no-debugger": "warn"
+        "no-debugger": "warn",
+        "no-undef": "warn",
+        "no-unsafe-finally": "warn"
     }
 }

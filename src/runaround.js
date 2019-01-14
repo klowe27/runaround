@@ -11,10 +11,14 @@ class Runaround {
     this.userInput = [];
   }
 
+  addUserInput(keyCode){
+    this.userInput.push(keyCode);
+  }
+
   updateGame(userInput, level, player, bullets) {
     level = this.createLevel(level);
     player = this.createPlayer(player);
-    // userInput, player = this.movePlayer(userInput, player);
+    [userInput, player] = this.movePlayer(userInput, player);
     // userInput, bullets = this.playerShoot(userInput, player);
     // level = this.spawnEnemies(leve);
     // level = this.moveEnemies(level, player);
@@ -28,23 +32,6 @@ class Runaround {
     // level = this.checkGameOver(level, player);
 
     return [userInput, level, player, bullets];
-  }
-
-  drawGame(level, player, bullets, useSummary) {
-    // drawLevel(level);
-    // drawPlayer(player);
-    // drawBullets(bullets);
-
-    if(useSummary) {
-      this.level++;
-      let summary = "Runaround\n";
-      summary += `level=${this.level}`;
-      return summary;
-    }
-  }
-
-  addUserInput(keyCode){
-    this.userInput.push(keyCode);
   }
 
   createLevel(level) {
@@ -75,9 +62,59 @@ class Runaround {
     return player;
   }
 
+  checkPlayerBounds(player) {
+    const boardWidth = 1000;
+    const boardHeight = 1000;
+    if(player.x < 0) {
+      player.x = 0;
+    } else if(player.x > boardWidth) {
+      player.x = boardWidth;
+    }
+    if(player.y < 0) {
+      player.y = 0;
+    } else if(player.y > boardHeight) {
+      player.y = boardHeight;
+    }
+    return player;
+  }
 
+  movePlayer(userInput, player) {
+    const moveSize = 10;
+    userInput = userInput.reduce((array, keyCode) => {
+      switch(keyCode) {
+      case 37:
+        player.x -= moveSize;
+        break;
+      case 38:
+        player.y += moveSize;
+        break;
+      case 39:
+        player.x += moveSize;
+        break;
+      case 40:
+        player.y -= moveSize;
+        break;
+      default:
+        array.push(keyCode);
+      }
+      return array;
+    }, []);
+
+    return [userInput, this.checkPlayerBounds(player)];
+  }
+
+  drawGame(level, player, bullets, useSummary) {
+    // drawLevel(level);
+    // drawPlayer(player);
+    // drawBullets(bullets);
+
+    if(useSummary) {
+      this.level++;
+      let summary = "Runaround\n";
+      summary += `level=${this.level}`;
+      return summary;
+    }
+  }
 }
-
-
 
 export { Runaround };

@@ -11,14 +11,17 @@ $(document).ready(function() {
   const framesPerSecond = 0.5;
   const interval = 1000 / framesPerSecond;
   setInterval(() => {
-    runaround.userInput, runaround.level, runaround.player, runaround.bullets = runaround.updateGame(runaround.userInput, runaround.level, runaround.player, runaround.bullets);
+    [runaround.userInput, runaround.level, runaround.player, runaround.bullets] = runaround.updateGame(runaround.userInput, runaround.level, runaround.player, runaround.bullets);
     let summary = runaround.drawGame(runaround.level, runaround.player, runaround.bullets, true);
     output.innerHTML = summary;
-    // console.log(summary);
+    console.log(summary);
   }, interval);
 
   document.onkeydown = function(event) {
     event.preventDefault();
-    runaround.addUserInput(event.keyCode);
-  }
+    const valids = [32, 37, 38, 39, 40];
+    if(valids.includes(event.keyCode)) {
+      runaround.addUserInput(event.keyCode);
+    }
+  };
 });

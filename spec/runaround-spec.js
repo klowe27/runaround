@@ -49,5 +49,15 @@ describe('Runaround', function() {
         expect(player.life).toEqual(player.lifeTotal);
       });
     });
+
+    describe('movePlayer', function() {
+      it('should move the player to the right', function() {
+        let player = runaround.createPlayer(null);
+        player.x = 100;
+        let userInput = [39];
+        [userInput, player] = runaround.movePlayer(userInput, player);
+        expect(player.x).toEqual(110);
+      });
+    });
   });
 });
