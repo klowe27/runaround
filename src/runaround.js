@@ -1,7 +1,7 @@
 import { Enemy } from './enemy.js';
 import { Player } from './player.js';
 import { Level } from './level.js';
-// import { Bullet } from './bullet.js';
+import { Bullet } from './bullet.js';
 
 class Runaround {
   constructor() {
@@ -18,12 +18,13 @@ class Runaround {
   updateGame(userInput, level, player, bullets) {
     level = this.createLevel(level);
     player = this.createPlayer(player);
+    console.log(userInput, bullets, player.bullets);
     [userInput, player] = this.movePlayer(userInput, player);
-    // userInput, bullets = this.playerShoot(userInput, player);
+    [userInput, player, bullets] = this.playerShoot(userInput, player, bullets);
     // level = this.spawnEnemies(leve);
     // level = this.moveEnemies(level, player);
     // bullets = this.moveBullets(bullets);
-    // level, bullets = this.checkEnemyHit(level, bullets);
+    // [level, bullets] = this.checkEnemyHit(level, bullets);
     // level = this.checkEnemyDeath(level);
     // player = this.checkPlayerHit(level, player);
     // level = this.checkPlayerDeath(level, player);
@@ -84,15 +85,23 @@ class Runaround {
       switch(keyCode) {
       case 37:
         player.x -= moveSize;
+        player.directionX = -1;
+        player.directionY = 0;
         break;
       case 38:
         player.y += moveSize;
+        player.directionX = 0;
+        player.directionY = 1;
         break;
       case 39:
         player.x += moveSize;
+        player.directionX = 1;
+        player.directionY = 0;
         break;
       case 40:
         player.y -= moveSize;
+        player.directionX = 0;
+        player.directionY = -1;
         break;
       default:
         array.push(keyCode);
@@ -103,15 +112,37 @@ class Runaround {
     return [userInput, this.checkPlayerBounds(player)];
   }
 
+  playerShoot(userInput, player, bullets) {
+    const velocity = 20;
+    userInput = userInput.reduce((array, keyCode) => {
+      if (keyCode === 32) {
+        if (player.bullets > 0) {
+          player.bullets--;
+          let bullet = new Bullet();
+          bullet.x = player.x;
+          bullet.y = player.y;
+          this.velocityX = velocity * player.directionX;
+          this.velocityY = velocity * player.directionY;
+          bullets.push(bullet);
+        }
+      } else {
+        array.push(keyCode);
+      }
+      return array;
+    }, []);
+    return [userInput, player, bullets];
+  }
+
+
   drawGame(level, player, bullets, useSummary) {
     // drawLevel(level);
     // drawPlayer(player);
     // drawBullets(bullets);
 
     if(useSummary) {
-      this.level++;
+      level.id++;
       let summary = "Runaround\n";
-      summary += `level=${this.level}`;
+      summary += `level=${level.id}`;
       return summary;
     }
   }

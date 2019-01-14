@@ -2,9 +2,11 @@ import { Runaround } from './../src/runaround.js';
 
 describe('Runaround', function() {
   let runaround;
+  let player;
 
   beforeEach(function(){
     runaround = new Runaround();
+    player = runaround.createPlayer(null);
   });
 
   describe('Constructor', function() {
@@ -39,7 +41,6 @@ describe('Runaround', function() {
 
     describe('createPlayer', function(){
       it('should create a new player and update properties', function() {
-        let player = runaround.createPlayer(null);
         expect(player.x).toEqual(100);
         expect(player.y).toEqual(100);
         expect(player.directionX).toEqual(1);
@@ -52,11 +53,24 @@ describe('Runaround', function() {
 
     describe('movePlayer', function() {
       it('should move the player to the right', function() {
-        let player = runaround.createPlayer(null);
         player.x = 100;
         let userInput = [39];
         [userInput, player] = runaround.movePlayer(userInput, player);
         expect(player.x).toEqual(110);
+      });
+    });
+
+    describe('playerShoot', function() {
+      it('should create a bullet and shoot it in the direction the player is facing', function() {
+        player.bullets = 20;
+        let userInput = [32];
+        let bullets = [];
+        [userInput, player, bullets] = runaround.playerShoot(userInput, player, bullets);
+        expect(bullets.length).toEqual(1);
+        expect(bullets[0].x).toEqual(player.x);
+        expect(bullets[0].y).toEqual(player.y);
+        expect(player.bullets).toEqual(19);
+
       });
     });
   });
