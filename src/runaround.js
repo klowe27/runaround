@@ -140,9 +140,11 @@ class Runaround {
     // drawBullets(bullets);
 
     if(useSummary) {
-      level.id++;
-      let summary = "Runaround\n";
-      summary += `level=${level.id}`;
+      let summary = "<p>Runaround</p>";
+      summary += `<p>Player position=${this.player.x}, ${this.player.y}</p>`;
+      summary += `<p>Player direction=${this.player.directionX}, ${this.player.directionY}</p>`;
+      summary += `<p>Player bullets=${this.player.bullets}</p>`;
+      summary += `<p>Player life=${this.player.life}<p>`;
       return summary;
     }
   }
