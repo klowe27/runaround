@@ -28,10 +28,9 @@ class Runaround {
     [level, bullets] = this.checkEnemyHit(level, bullets);
     level = this.checkEnemyDeath(level);
     player = this.checkPlayerHit(level, player);
-    // level = this.checkPlayerDeath(level, player);
+    level = this.checkPlayerDeath(level, player);
+    level = this.checkTime(level);
     // level = this.checkExit(level, player);
-    // level = this.checkTime(level);
-    // level = this.checkGameOver(level, player);
 
     return [userInput, level, player, bullets];
   }
@@ -228,6 +227,19 @@ class Runaround {
     return player;
   }
 
+  checkPlayerDeath(level, player) {
+    if(player.life <= 0) {
+      level.gameOver = true;
+    }
+    return level;
+  }
+
+  checkTime(level) {
+    if(level.timeLeft <= 0) {
+      level.gameOver = true;
+    }
+    return level;
+  }
 
   drawGame(level, player, bullets, useSummary) {
     // drawLevel(level);
@@ -236,6 +248,10 @@ class Runaround {
 
     if(useSummary) {
       let summary = "<p>Runaround</p>";
+      summary += `<p>Time left=${level.timeLeft}</p>`;
+      if(level.gameOver) {
+        summary += `<p>GAME OVER</p>`;
+      }
       summary += `<p>Player position=${player.x}, ${player.y}</p>`;
       summary += `<p>Player direction=${player.directionX}, ${player.directionY}</p>`;
       summary += `<p>Player bullets=${player.bullets}</p>`;

@@ -6,7 +6,7 @@ describe('Level', function() {
     expect(level.id).toEqual(0);
     expect(level.exitX).toEqual(0);
     expect(level.exitY).toEqual(0);
-    expect(level.timeLeft).toEqual(0);
+    expect(level.timeLeft === 0).toEqual(false);
     expect(level.gameOver).toEqual(false);
     expect(level.enemies).toEqual([]);
     expect(level.currentEnemies).toEqual([]);

@@ -5,6 +5,7 @@ describe('Runaround', function() {
   let runaround;
   let level;
   let player;
+  jasmine.clock().install();
 
   beforeEach(function(){
     runaround = new Runaround();
@@ -179,6 +180,22 @@ describe('Runaround', function() {
         // console.log("afterHit p=", player);
         // console.log("afterHit l=", level);
         // expect(player.life).toEqual(80);
+      });
+    });
+
+    describe('checkPlayerDeath', function() {
+      it('it should remove the current enemy if their life is zero or less', function() {
+        player.life = 0;
+        level = runaround.checkPlayerDeath(level, player);
+        expect(level.gameOver).toEqual(true);
+      });
+    });
+
+    describe('checkTime', function() {
+      it('it should set the value of gameOver to true if time is less than or equal to zero', function() {
+        jasmine.clock().tick(180001);
+        level = runaround.checkTime(level);
+        expect(level.gameOver).toEqual(true);
       });
     });
   });

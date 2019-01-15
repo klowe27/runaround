@@ -13,7 +13,9 @@ $(document).ready(function() {
   setInterval(() => {
     [runaround.userInput, runaround.level, runaround.player, runaround.bullets] = runaround.updateGame(runaround.userInput, runaround.level, runaround.player, runaround.bullets);
     let summary = runaround.drawGame(runaround.level, runaround.player, runaround.bullets, true);
-    output.innerHTML = summary;
+    if(output) {
+      output.innerHTML = summary;
+    }
   }, interval);
 
   document.onkeydown = function(event) {
