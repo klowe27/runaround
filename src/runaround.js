@@ -1,4 +1,3 @@
-import { Enemy } from './enemy.js';
 import { Player } from './player.js';
 import { Level } from './level.js';
 import { Bullet } from './bullet.js';
@@ -42,13 +41,7 @@ class Runaround {
   createLevel(level) {
     if (!level) {
       level = new Level();
-      level.id = 0;
-      level.exitX = 1000;
-      level.exitY = 500;
-      level.timeLeft = 180;
-      level.gameOver = false;
-      level.enemies = [new Enemy(0), new Enemy(0), new Enemy(0)];
-      level.currentEnemies = [];
+      level = Level.setDataById(0, level);
     }
     return level;
   }
@@ -247,7 +240,7 @@ class Runaround {
     // drawBullets(bullets);
 
     if(useSummary) {
-      let summary = "<p>Runaround</p>";
+      let summary = `<p>Runaround, Level${level.id}</p>`;
       summary += `<p>Time left=${level.timeLeft}</p>`;
       if(level.gameOver) {
         summary += `<p>GAME OVER</p>`;
