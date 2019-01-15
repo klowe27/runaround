@@ -81,5 +81,15 @@ describe('Runaround', function() {
         expect(level.currentEnemies.length == 0).toEqual(false);
       });
     });
+
+    describe('moveEnemies', function() {
+      it('should spawn enemies from the level onto the board', function() {
+        level.currentEnemies = [];
+        level = runaround.spawnEnemies(level);
+        level = runaround.moveEnemies(level);
+        expect(level.currentEnemies[0].x === 500).toEqual(false);
+        expect(level.currentEnemies[0].y === 500).toEqual(false);
+      });
+    });
   });
 });

@@ -22,7 +22,7 @@ class Runaround {
     [userInput, player, bullets] = this.playerShoot(userInput, player, bullets);
     level = this.spawnEnemies(level);
     console.log("before", level.currentEnemies[0]);
-    // level = this.moveEnemies(level, player);
+    level = this.moveEnemies(level, player);
     console.log("after", level.currentEnemies[0]);
     // bullets = this.moveBullets(bullets);
     // [level, bullets] = this.checkEnemyHit(level, bullets);
@@ -48,6 +48,10 @@ class Runaround {
       level.currentEnemies = [];
     }
     return level;
+  }
+
+  randomNumber(min, max){
+    return (Math.floor(Math.random() * (max-min + 1)))+min;
   }
 
   createPlayer(player){
@@ -141,6 +145,19 @@ class Runaround {
     }
     return level;
   }
+
+  moveEnemies(level) {
+    level.currentEnemies.forEach((enemy) => {
+      const signX = ((this.randomNumber(0,1) == 0) ? -1 : +1);
+      const signY = ((this.randomNumber(0,1) == 0) ? -1 : +1);
+      const min = 5;
+      const max = 15;
+      enemy.x += signX * this.randomNumber(min, max);
+      enemy.y += signY * this.randomNumber(min, max);
+    });
+    return level;
+  }
+
 
   drawGame(level, player, bullets, useSummary) {
     // drawLevel(level);
