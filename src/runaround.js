@@ -23,10 +23,8 @@ class Runaround {
     [userInput, player] = this.movePlayer(userInput, player);
     [userInput, player, bullets] = this.playerShoot(userInput, player, bullets);
     level = this.spawnEnemies(level);
-    // console.log("before", level.currentEnemies[0]);
     level = this.moveEnemies(level, player);
-    // console.log("after", level.currentEnemies[0]);
-    // bullets = this.moveBullets(bullets);
+    bullets = this.moveBullets(bullets);
     // [level, bullets] = this.checkEnemyHit(level, bullets);
     // level = this.checkEnemyDeath(level);
     // player = this.checkPlayerHit(level, player);
@@ -136,8 +134,8 @@ class Runaround {
           let bullet = new Bullet();
           bullet.x = player.x;
           bullet.y = player.y;
-          this.velocityX = velocity * player.directionX;
-          this.velocityY = velocity * player.directionY;
+          bullet.velocityX = velocity * player.directionX;
+          bullet.velocityY = velocity * player.directionY;
           bullets.push(bullet);
         }
       } else {
@@ -192,6 +190,10 @@ class Runaround {
       summary += `<p>Player bullets=${player.bullets}</p>`;
       summary += `<p>Player life=${player.life}<p>`;
       summary += `<p>Enemy count=${level.currentEnemies.length}</p>`;
+      if(bullets.length > 0) {
+        summary += `<p>Bullet0: x=${bullets[0].x}, y=${bullets[0].y} vx=${bullets[0].velocityX} vy=${bullets[0].velocityY}</p>`
+      }
+      summary += `<p>Bullets=[${bullets.reduce((s, b) => { return s + `x=${b.x} y=${b.y}, `}, "")}]</p>`;
       return summary;
     }
   }
