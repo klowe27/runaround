@@ -6,8 +6,9 @@ class Player {
     this.directionY = 0;
     this.bullets = 0;
     this.score = 0;
-    this.life = 0;
     this.lifeTotal = 100;
+    this.life = this.lifeTotal;
+    this.size = [40,80];
   }
 }
 

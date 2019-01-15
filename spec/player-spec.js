@@ -10,7 +10,7 @@ describe('Player', function() {
     expect(player.directionY).toEqual(0);
     expect(player.bullets).toEqual(0);
     expect(player.score).toEqual(0);
-    expect(player.life).toEqual(0);
+    expect(player.life).toEqual(100);
     expect(player.lifeTotal).toEqual(100);
   });
 });

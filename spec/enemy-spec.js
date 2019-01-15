@@ -7,7 +7,7 @@ describe('Enemy', function() {
     expect(enemy.type).toEqual(0);
     expect(enemy.x).toEqual(500);
     expect(enemy.y).toEqual(500);
-    expect(enemy.life).toEqual(0);
+    expect(enemy.life).toEqual(20);
     expect(enemy.lifeTotal).toEqual(20);
   });
 });

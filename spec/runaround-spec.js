@@ -119,6 +119,13 @@ describe('Runaround', function() {
         bullet2.y = 98;
         bullet2.size = [5, 5];
         expect(runaround.hasOverlap(bullet, bullet2)).toEqual(true);
+        bullet.x = 530;
+        bullet.y = 499;
+        bullet.size = [40, 80];
+        bullet2.x = 500;
+        bullet2.y = 500;
+        bullet2.size = [40, 40];
+        expect(runaround.hasOverlap(bullet, bullet2)).toEqual(true);
       });
     });
 
@@ -147,6 +154,31 @@ describe('Runaround', function() {
         level.currentEnemies[0].life = -10;
         level = runaround.checkEnemyDeath(level);
         expect(level.currentEnemies).toEqual([]);
+      });
+    });
+
+    describe('checkPlayerHit', function() {
+      it('if player and enemy overlap, should reduce player life', function() {
+        // level = runaround.spawnEnemies(level);
+        // level.currentEnemies[0].x = 500;
+        // level.currentEnemies[0].y = 500;
+        // level.currentEnemies[0].size = [40,40];
+        // level.currentEnemies[0].strength = 20;
+        // player.x = 530;
+        // player.y = 499;
+        // player.life = 100;
+        // player.size = [40, 80];
+        // player = runaround.checkPlayerHit(level, player);
+        // expect(player.life).toEqual(80);
+
+        // level = runaround.spawnEnemies(level);
+        // player.x = 500;
+        // player.y = 490;
+        // player.life = 100;
+        // player = runaround.checkPlayerHit(level, player);
+        // console.log("afterHit p=", player);
+        // console.log("afterHit l=", level);
+        // expect(player.life).toEqual(80);
       });
     });
   });

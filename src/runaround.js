@@ -27,7 +27,7 @@ class Runaround {
     bullets = this.moveBullets(bullets);
     [level, bullets] = this.checkEnemyHit(level, bullets);
     level = this.checkEnemyDeath(level);
-    // player = this.checkPlayerHit(level, player);
+    player = this.checkPlayerHit(level, player);
     // level = this.checkPlayerDeath(level, player);
     // level = this.checkExit(level, player);
     // level = this.checkTime(level);
@@ -165,7 +165,6 @@ class Runaround {
     if((level.currentEnemies.length === 0)
     && (level.enemies.length !== 0)) {
       level.currentEnemies.push(level.enemies.pop());
-      console.log("NEW ENEMY life=", level.currentEnemies[level.currentEnemies.length - 1].life);
     }
     return level;
   }
@@ -201,7 +200,6 @@ class Runaround {
         if (this.hasOverlap(level.currentEnemies[i], bullet)) {
           bulletHasHit = true;
           level.currentEnemies[i].life -= bullet.strength;
-          console.log("HIT", level.currentEnemies[i].life);
         }
       }
       if (!bulletHasHit) {
@@ -216,6 +214,20 @@ class Runaround {
     level.currentEnemies = level.currentEnemies.filter((enemy) => enemy.life > 0);
     return level;
   }
+
+  checkPlayerHit(level, player) {
+    // console.log("checkPlayerHit");
+    for (let i = 0; i < level.currentEnemies.length; i++) {
+      // console.log("  player", player.x, player.y, player.size);
+      // console.log("  level.currentEnemies[i]", level.currentEnemies[i].x, level.currentEnemies[i].y, level.currentEnemies[i].size);
+      if (this.hasOverlap(level.currentEnemies[i], player)) {
+        player.life -= level.currentEnemies[i].strength;
+        console.log("  HIT life=", player.life);
+      }
+    }
+    return player;
+  }
+
 
   drawGame(level, player, bullets, useSummary) {
     // drawLevel(level);

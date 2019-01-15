@@ -6,6 +6,7 @@ class Enemy {
     this.lifeTotal = this.getTotalByType(type);
     this.life = this.lifeTotal;
     this.size = this.getSizeByType(type);
+    this.strength = this.getStrengthByType(type);
   }
 
   getTotalByType(type){
@@ -25,6 +26,16 @@ class Enemy {
       return [40, 40];
     }
   }
+
+  getStrengthByType(type) {
+    switch(type) {
+    case 0:
+      return 20;
+    default:
+      return 20;
+    }
+  }
+
 }
 
 export { Enemy };
