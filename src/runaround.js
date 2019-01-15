@@ -5,7 +5,7 @@ import { Bullet } from './bullet.js';
 class Runaround {
   constructor() {
     this.boardWidth = 1000;
-    this.boardHeight = 1000;
+    this.boardHeight = 800;
     this.level = null;
     this.player = null;
     this.bullets = [];
@@ -154,7 +154,7 @@ class Runaround {
   }
 
   spawnEnemies(level) {
-    if((level.currentEnemies.length === 0) && (level.enemies.length !== 0)) {
+    if((level.currentEnemies.length <= 1) && (level.enemies.length !== 0)) {
       let enemy = level.enemies.pop();
       enemy.x = this.randomNumber(0, this.boardWidth);
       enemy.y = this.randomNumber(0, this.boardHeight);
@@ -273,19 +273,14 @@ class Runaround {
     this.drawBullets(ctx, images, bullets);
 
     if(useSummary) {
-      let summary = `<p>Runaround, Level${level.id}</p>`;
-      summary += `<p>Time left=${level.timeLeft}</p>`;
-      if(level.gameOver) {
-        summary += `<p>GAME OVER</p>`;
-      }
-      summary += `<p>Player position=${player.x}, ${player.y}</p>`;
-      summary += `<p>Player direction=${player.directionX}, ${player.directionY}</p>`;
-      summary += `<p>Player bullets=${player.bullets}</p>`;
-      summary += `<p>Player life=${player.life}<p>`;
-      summary += `<p>Enemies left=${level.enemies.length}</p>`;
-      summary += `<p>Enemy count=${level.currentEnemies.length}</p>`;
-      summary += `<p>Enemies=[${level.currentEnemies.reduce((s, e) => { return s + `x=${e.x} y=${e.y}, `;}, "")}]</p>`;
-      summary += `<p>Bullets=[${bullets.reduce((s, b) => { return s + `x=${b.x} y=${b.y}, `;}, "")}]</p>`;
+      let summary = `<p>Level: ${level.id}</p>`;
+      summary += `<p>Life: ${player.life}</p>`;
+      summary += `<p>Bullets: ${player.bullets}</p>`;
+      summary += `<p>Enemies: ${level.enemies.length}</p>`;
+      summary += `<p class="double">Time: ${level.timeLeft}</p>`;
+      // if(level.gameOver) {
+      //   summary += `<p>GAME OVER</p>`;
+      // }
       return summary;
     }
   }
