@@ -26,7 +26,7 @@ class Runaround {
     level = this.moveEnemies(level, player);
     bullets = this.moveBullets(bullets);
     [level, bullets] = this.checkEnemyHit(level, bullets);
-    // level = this.checkEnemyDeath(level);
+    level = this.checkEnemyDeath(level);
     // player = this.checkPlayerHit(level, player);
     // level = this.checkPlayerDeath(level, player);
     // level = this.checkExit(level, player);
@@ -165,6 +165,7 @@ class Runaround {
     if((level.currentEnemies.length === 0)
     && (level.enemies.length !== 0)) {
       level.currentEnemies.push(level.enemies.pop());
+      console.log("NEW ENEMY life=", level.currentEnemies[level.currentEnemies.length - 1].life);
     }
     return level;
   }
@@ -200,6 +201,7 @@ class Runaround {
         if (this.hasOverlap(level.currentEnemies[i], bullet)) {
           bulletHasHit = true;
           level.currentEnemies[i].life -= bullet.strength;
+          console.log("HIT", level.currentEnemies[i].life);
         }
       }
       if (!bulletHasHit) {
@@ -208,6 +210,11 @@ class Runaround {
       return array;
     }, []);
     return [level, bullets];
+  }
+
+  checkEnemyDeath(level) {
+    level.currentEnemies = level.currentEnemies.filter((enemy) => enemy.life > 0);
+    return level;
   }
 
   drawGame(level, player, bullets, useSummary) {
@@ -221,7 +228,9 @@ class Runaround {
       summary += `<p>Player direction=${player.directionX}, ${player.directionY}</p>`;
       summary += `<p>Player bullets=${player.bullets}</p>`;
       summary += `<p>Player life=${player.life}<p>`;
+      summary += `<p>Enemies left=${level.enemies.length}</p>`;
       summary += `<p>Enemy count=${level.currentEnemies.length}</p>`;
+      summary += `<p>Enemies=[${level.currentEnemies.reduce((s, e) => { return s + `x=${e.x} y=${e.y}, `}, "")}]</p>`
       summary += `<p>Bullets=[${bullets.reduce((s, b) => { return s + `x=${b.x} y=${b.y}, `}, "")}]</p>`;
       return summary;
     }

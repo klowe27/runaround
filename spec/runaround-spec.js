@@ -139,5 +139,15 @@ describe('Runaround', function() {
         expect(level.currentEnemies[0].life).toEqual(55);
       });
     });
+
+    describe('checkEnemyDeath', function() {
+      it('it should remove the current enemy if their life is zero or less', function() {
+        level = runaround.spawnEnemies(level);
+        level.currentEnemies.length = 1;
+        level.currentEnemies[0].life = -10;
+        level = runaround.checkEnemyDeath(level);
+        expect(level.currentEnemies).toEqual([]);
+      });
+    });
   });
 });

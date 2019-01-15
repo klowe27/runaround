@@ -3,8 +3,8 @@ class Enemy {
     this.type = type;
     this.x = 500;
     this.y = 500;
-    this.life = 0;
     this.lifeTotal = this.getTotalByType(type);
+    this.life = this.lifeTotal;
     this.size = this.getSizeByType(type);
   }
 
