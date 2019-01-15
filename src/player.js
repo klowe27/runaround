@@ -8,7 +8,7 @@ class Player {
     this.score = 0;
     this.lifeTotal = 100;
     this.life = this.lifeTotal;
-    this.size = [40,80];
+    this.size = [40, 60];
   }
 }
 

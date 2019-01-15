@@ -5,7 +5,7 @@ class Bullet {
     this.velocityX = 0;
     this.velocityY = 0;
     this.strength = 20;
-    this.size = [2, 2];
+    this.size = [6, 6];
   }
 }
 

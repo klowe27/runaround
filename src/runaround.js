@@ -53,7 +53,7 @@ class Runaround {
       player.y = 100;
       player.directionX = 1;
       player.directionY = 0;
-      player.bullets = 30;
+      player.bullets = 300;
       player.score = 0;
       player.life = player.lifeTotal;
     }
@@ -111,7 +111,7 @@ class Runaround {
       case 38:
         player.y -= moveSize;
         player.directionX = 0;
-        player.directionY = 1;
+        player.directionY = -1;
         break;
       case 39:
         player.x += moveSize;
@@ -121,7 +121,7 @@ class Runaround {
       case 40:
         player.y += moveSize;
         player.directionX = 0;
-        player.directionY = -1;
+        player.directionY = 1;
         break;
       default:
         array.push(keyCode);
@@ -139,8 +139,8 @@ class Runaround {
         if (player.bullets > 0) {
           player.bullets--;
           let bullet = new Bullet();
-          bullet.x = player.x;
-          bullet.y = player.y;
+          bullet.x = player.x + (player.size[0] / 2);
+          bullet.y = player.y + (player.size[1] / 3);
           bullet.velocityX = velocity * player.directionX;
           bullet.velocityY = velocity * player.directionY;
           bullets.push(bullet);
@@ -155,7 +155,10 @@ class Runaround {
 
   spawnEnemies(level) {
     if((level.currentEnemies.length === 0) && (level.enemies.length !== 0)) {
-      level.currentEnemies.push(level.enemies.pop());
+      let enemy = level.enemies.pop();
+      enemy.x = this.randomNumber(0, this.boardWidth);
+      enemy.y = this.randomNumber(0, this.boardHeight);
+      level.currentEnemies.push(enemy);
     }
     return level;
   }
@@ -164,8 +167,8 @@ class Runaround {
     level.currentEnemies.forEach((enemy) => {
       const signX = ((this.randomNumber(0,1) == 0) ? -1 : +1);
       const signY = ((this.randomNumber(0,1) == 0) ? -1 : +1);
-      const min = 5;
-      const max = 15;
+      const min = 1;
+      const max = 6;
       enemy.x += signX * this.randomNumber(min, max);
       enemy.y += signY * this.randomNumber(min, max);
       enemy = this.confineToBounds(enemy);
@@ -242,22 +245,32 @@ class Runaround {
     return [level, player];
   }
 
-  drawLevel(ctx) {
+  drawLevel(ctx, images, level) {
     ctx.beginPath();
     ctx.fillStyle = "#ffefc0";
     ctx.fillRect(0, 0, 1000, 1000);
     ctx.fillStyle = "#e0f8ff";
     ctx.fillRect(0, 0, 1000, 120);
+
+    level.currentEnemies.forEach(function(enemy) {
+      ctx.drawImage(images.enemy, enemy.x, enemy.y, enemy.size[0], enemy.size[1]);
+    });
   }
 
   drawPlayer(ctx, images, player) {
-    ctx.drawImage(images.player, player.x, player.y);
+    ctx.drawImage(images.player, player.x, player.y, player.size[0], player.size[1]);
+  }
+
+  drawBullets(ctx, images, bullets) {
+    bullets.forEach(function(bullet) {
+      ctx.drawImage(images.bullet, bullet.x, bullet.y, bullet.size[0], bullet.size[1]);
+    })
   }
 
   drawGame(ctx, images, level, player, bullets, useSummary) {
     this.drawLevel(ctx, images, level);
     this.drawPlayer(ctx, images, player);
-    // drawBullets(bullets);
+    this.drawBullets(ctx, images, bullets);
 
     if(useSummary) {
       let summary = `<p>Runaround, Level${level.id}</p>`;

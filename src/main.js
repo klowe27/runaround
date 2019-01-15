@@ -1,5 +1,7 @@
 import { Runaround } from './runaround.js';
-import * as r2d2Url from '../img/r2d2-2.png'
+import * as r2d2Url from '../img/r2d2-2.png';
+import * as jawaUrl from '../img/jawa-1.png';
+import * as bulletUrl from '../img/bullet-1.png';
 import './styles.css';
 import $ from 'jquery';
 import 'bootstrap';
@@ -15,6 +17,10 @@ $(document).ready(function() {
   let images = {};
   images.player = document.createElement('img');
   images.player.src = r2d2Url.default;
+  images.enemy = document.createElement('img');
+  images.enemy.src = jawaUrl.default;
+  images.bullet = document.createElement('img');
+  images.bullet.src = bulletUrl.default;
 
   const framesPerSecond = 30;
   const interval = 1000 / framesPerSecond;

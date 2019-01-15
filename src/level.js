@@ -27,7 +27,10 @@ class Level {
       this.timeLeft = 180;
       this.gameOver = false;
       this.youWon = false;
-      this.enemies = [new Enemy(0), new Enemy(0), new Enemy(0)];
+      this.enemies = [];
+      for(let i = 0; i < 10; i++) {
+        this.enemies.push(new Enemy(0));
+      }
       this.currentEnemies = [];
       break;
     // case 1:
