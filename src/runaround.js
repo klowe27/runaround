@@ -36,6 +36,10 @@ class Runaround {
     return [userInput, level, player, bullets];
   }
 
+  randomNumber(min, max){
+    return (Math.floor(Math.random() * (max-min + 1)))+min;
+  }
+
   createLevel(level) {
     if (!level) {
       level = new Level();
@@ -48,10 +52,6 @@ class Runaround {
       level.currentEnemies = [];
     }
     return level;
-  }
-
-  randomNumber(min, max){
-    return (Math.floor(Math.random() * (max-min + 1)))+min;
   }
 
   createPlayer(player){
@@ -68,20 +68,20 @@ class Runaround {
     return player;
   }
 
-  checkPlayerBounds(player) {
+  checkBounds(character) {
     const boardWidth = 1000;
     const boardHeight = 1000;
-    if(player.x < 0) {
-      player.x = 0;
-    } else if(player.x > boardWidth) {
-      player.x = boardWidth;
+    if(character.x < 0) {
+      character.x = 0;
+    } else if(character.x > boardWidth) {
+      character.x = boardWidth;
     }
-    if(player.y < 0) {
-      player.y = 0;
-    } else if(player.y > boardHeight) {
-      player.y = boardHeight;
+    if(character.y < 0) {
+      character.y = 0;
+    } else if(character.y > boardHeight) {
+      character.y = boardHeight;
     }
-    return player;
+    return character;
   }
 
   movePlayer(userInput, player) {
@@ -114,7 +114,7 @@ class Runaround {
       return array;
     }, []);
 
-    return [userInput, this.checkPlayerBounds(player)];
+    return [userInput, this.checkBounds(player)];
   }
 
   playerShoot(userInput, player, bullets) {
@@ -154,6 +154,7 @@ class Runaround {
       const max = 15;
       enemy.x += signX * this.randomNumber(min, max);
       enemy.y += signY * this.randomNumber(min, max);
+      enemy = this.checkBounds(enemy);
     });
     return level;
   }
@@ -170,7 +171,7 @@ class Runaround {
       summary += `<p>Player direction=${player.directionX}, ${player.directionY}</p>`;
       summary += `<p>Player bullets=${player.bullets}</p>`;
       summary += `<p>Player life=${player.life}<p>`;
-      summary += `<p>Enemy count=${level.currentEnemies.length}</p>`
+      summary += `<p>Enemy count=${level.currentEnemies.length}</p>`;
       return summary;
     }
   }
