@@ -8,7 +8,7 @@ describe('Level', function() {
     expect(level.exitY).toEqual(0);
     expect(level.timeLeft).toEqual(0);
     expect(level.gameOver).toEqual(false);
-    expect(level.ememies).toEqual([]);
+    expect(level.enemies).toEqual([]);
     expect(level.currentEnemies).toEqual([]);
   });
 })

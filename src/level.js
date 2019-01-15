@@ -5,7 +5,7 @@ class Level {
     this.exitY = 0;
     this.timeLeft = 0;
     this.gameOver = false;
-    this.ememies = [];
+    this.enemies = [];
     this.currentEnemies = [];
   }
 }

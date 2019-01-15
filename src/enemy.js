@@ -1,8 +1,8 @@
 class Enemy {
   constructor(type){
     this.type = type;
-    this.x = 0;
-    this.y = 0;
+    this.x = 500;
+    this.y = 500;
     this.life = 0;
     this.lifeTotal = this.getTotalByType(type);
   }

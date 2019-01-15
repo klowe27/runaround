@@ -18,11 +18,12 @@ class Runaround {
   updateGame(userInput, level, player, bullets) {
     level = this.createLevel(level);
     player = this.createPlayer(player);
-    console.log(userInput, bullets, player.bullets);
     [userInput, player] = this.movePlayer(userInput, player);
     [userInput, player, bullets] = this.playerShoot(userInput, player, bullets);
-    // level = this.spawnEnemies(leve);
+    level = this.spawnEnemies(level);
+    console.log("before", level.currentEnemies[0]);
     // level = this.moveEnemies(level, player);
+    console.log("after", level.currentEnemies[0]);
     // bullets = this.moveBullets(bullets);
     // [level, bullets] = this.checkEnemyHit(level, bullets);
     // level = this.checkEnemyDeath(level);
@@ -43,7 +44,7 @@ class Runaround {
       level.exitY = 500;
       level.timeLeft = 180;
       level.gameOver = false;
-      level.ememies = [new Enemy(0), new Enemy(0), new Enemy(0)];
+      level.enemies = [new Enemy(0), new Enemy(0), new Enemy(0)];
       level.currentEnemies = [];
     }
     return level;
@@ -133,6 +134,13 @@ class Runaround {
     return [userInput, player, bullets];
   }
 
+  spawnEnemies(level) {
+    if((level.currentEnemies.length === 0)
+    && (level.enemies.length !== 0)) {
+      level.currentEnemies.push(level.enemies.pop());
+    }
+    return level;
+  }
 
   drawGame(level, player, bullets, useSummary) {
     // drawLevel(level);
@@ -141,10 +149,11 @@ class Runaround {
 
     if(useSummary) {
       let summary = "<p>Runaround</p>";
-      summary += `<p>Player position=${this.player.x}, ${this.player.y}</p>`;
-      summary += `<p>Player direction=${this.player.directionX}, ${this.player.directionY}</p>`;
-      summary += `<p>Player bullets=${this.player.bullets}</p>`;
-      summary += `<p>Player life=${this.player.life}<p>`;
+      summary += `<p>Player position=${player.x}, ${player.y}</p>`;
+      summary += `<p>Player direction=${player.directionX}, ${player.directionY}</p>`;
+      summary += `<p>Player bullets=${player.bullets}</p>`;
+      summary += `<p>Player life=${player.life}<p>`;
+      summary += `<p>Enemy count=${level.currentEnemies.length}</p>`
       return summary;
     }
   }
