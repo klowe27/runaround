@@ -109,7 +109,7 @@ class Runaround {
         player.directionY = 0;
         break;
       case 38:
-        player.y += moveSize;
+        player.y -= moveSize;
         player.directionX = 0;
         player.directionY = 1;
         break;
@@ -119,7 +119,7 @@ class Runaround {
         player.directionY = 0;
         break;
       case 40:
-        player.y -= moveSize;
+        player.y += moveSize;
         player.directionX = 0;
         player.directionY = -1;
         break;
@@ -242,9 +242,21 @@ class Runaround {
     return [level, player];
   }
 
-  drawGame(level, player, bullets, useSummary) {
-    // drawLevel(level);
-    // drawPlayer(player);
+  drawLevel(ctx) {
+    ctx.beginPath();
+    ctx.fillStyle = "#ffefc0";
+    ctx.fillRect(0, 0, 1000, 1000);
+    ctx.fillStyle = "#e0f8ff";
+    ctx.fillRect(0, 0, 1000, 120);
+  }
+
+  drawPlayer(ctx, images, player) {
+    ctx.drawImage(images.player, player.x, player.y);
+  }
+
+  drawGame(ctx, images, level, player, bullets, useSummary) {
+    this.drawLevel(ctx, images, level);
+    this.drawPlayer(ctx, images, player);
     // drawBullets(bullets);
 
     if(useSummary) {
