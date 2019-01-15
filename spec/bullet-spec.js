@@ -6,7 +6,7 @@ describe('Bullet', function() {
     var bullet = new Bullet();
     expect(bullet.x).toEqual(0);
     expect(bullet.y).toEqual(0);
-    expect(bullet.velocityX).toEqual(1);
+    expect(bullet.velocityX).toEqual(0);
     expect(bullet.velocityY).toEqual(0);
     expect(bullet.strength).toEqual(20);
   });

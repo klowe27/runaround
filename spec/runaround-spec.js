@@ -1,4 +1,5 @@
 import { Runaround } from './../src/runaround.js';
+import { Bullet } from './../src/bullet.js';
 
 describe('Runaround', function() {
   let runaround;
@@ -89,6 +90,21 @@ describe('Runaround', function() {
         level = runaround.moveEnemies(level);
         expect(level.currentEnemies[0].x === 500).toEqual(false);
         expect(level.currentEnemies[0].y === 500).toEqual(false);
+      });
+    });
+
+    describe('moveBullets', function() {
+      it('should move bullets', function() {
+        let bullet = new Bullet();
+        bullet.x = 0;
+        bullet.y = 0;
+        bullet.velocityX = 20;
+        bullet.velocityY = 0;
+        let bullets = [];
+        bullets.push(bullet);
+        bullets = runaround.moveBullets(bullets);
+        expect(bullets[0].x).toEqual(20);
+        expect(bullets[0].y).toEqual(0);
       });
     });
   });

@@ -5,6 +5,8 @@ import { Bullet } from './bullet.js';
 
 class Runaround {
   constructor() {
+    this.boardWidth = 1000;
+    this.boardHeight = 1000;
     this.level = null;
     this.player = null;
     this.bullets = [];
@@ -21,9 +23,9 @@ class Runaround {
     [userInput, player] = this.movePlayer(userInput, player);
     [userInput, player, bullets] = this.playerShoot(userInput, player, bullets);
     level = this.spawnEnemies(level);
-    console.log("before", level.currentEnemies[0]);
+    // console.log("before", level.currentEnemies[0]);
     level = this.moveEnemies(level, player);
-    console.log("after", level.currentEnemies[0]);
+    // console.log("after", level.currentEnemies[0]);
     // bullets = this.moveBullets(bullets);
     // [level, bullets] = this.checkEnemyHit(level, bullets);
     // level = this.checkEnemyDeath(level);
@@ -68,20 +70,28 @@ class Runaround {
     return player;
   }
 
-  checkBounds(character) {
-    const boardWidth = 1000;
-    const boardHeight = 1000;
-    if(character.x < 0) {
-      character.x = 0;
-    } else if(character.x > boardWidth) {
-      character.x = boardWidth;
+  isInBounds(object) {
+    if((object.x < 0) ||
+      (object.x > this.boardWidth) ||
+      (object.y < 0) ||
+      (object.y > this.boardHeight)) {
+        return false;
+      }
+      return true;
+  }
+
+  confineToBounds(object) {
+    if(object.x < 0) {
+      object.x = 0;
+    } else if(object.x > this.boardWidth) {
+      object.x = this.boardWidth;
     }
-    if(character.y < 0) {
-      character.y = 0;
-    } else if(character.y > boardHeight) {
-      character.y = boardHeight;
+    if(object.y < 0) {
+      object.y = 0;
+    } else if(object.y > this.boardHeight) {
+      object.y = this.boardHeight;
     }
-    return character;
+    return object;
   }
 
   movePlayer(userInput, player) {
@@ -114,7 +124,7 @@ class Runaround {
       return array;
     }, []);
 
-    return [userInput, this.checkBounds(player)];
+    return [userInput, this.confineToBounds(player)];
   }
 
   playerShoot(userInput, player, bullets) {
@@ -154,11 +164,21 @@ class Runaround {
       const max = 15;
       enemy.x += signX * this.randomNumber(min, max);
       enemy.y += signY * this.randomNumber(min, max);
-      enemy = this.checkBounds(enemy);
+      enemy = this.confineToBounds(enemy);
     });
     return level;
   }
 
+  moveBullets(bullets) {
+    return bullets.reduce((array, bullet) => {
+      bullet.x += bullet.velocityX;
+      bullet.y += bullet.velocityY;
+      if(this.isInBounds(bullet)) {
+        array.push(bullet);
+      }
+      return array;
+    }, []);
+  }
 
   drawGame(level, player, bullets, useSummary) {
     // drawLevel(level);
