@@ -5,6 +5,7 @@ class Enemy {
     this.y = 500;
     this.life = 0;
     this.lifeTotal = this.getTotalByType(type);
+    this.size = this.getSizeByType(type);
   }
 
   getTotalByType(type){
@@ -13,6 +14,15 @@ class Enemy {
       return 20;
     default:
       return 0;
+    }
+  }
+
+  getSizeByType(type){
+    switch(type) {
+    case 0:
+      return [40, 40];
+    default:
+      return [40, 40];
     }
   }
 }

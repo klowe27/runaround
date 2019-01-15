@@ -107,5 +107,19 @@ describe('Runaround', function() {
         expect(bullets[0].y).toEqual(0);
       });
     });
+
+    describe('hasOverlap', function() {
+      it('should return true if two objects overlap', function() {
+        let bullet = new Bullet();
+        bullet.x = 100;
+        bullet.y = 100;
+        bullet.size = [5, 5];
+        let bullet2 = new Bullet();
+        bullet2.x = 104;
+        bullet2.y = 98;
+        bullet2.size = [5, 5];
+        expect(runaround.hasOverlap(bullet, bullet2)).toEqual(true);
+      });
+    });
   });
 });

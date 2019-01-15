@@ -25,7 +25,7 @@ class Runaround {
     level = this.spawnEnemies(level);
     level = this.moveEnemies(level, player);
     bullets = this.moveBullets(bullets);
-    // [level, bullets] = this.checkEnemyHit(level, bullets);
+    [level, bullets] = this.checkEnemyHit(level, bullets);
     // level = this.checkEnemyDeath(level);
     // player = this.checkPlayerHit(level, player);
     // level = this.checkPlayerDeath(level, player);
@@ -90,6 +90,21 @@ class Runaround {
       object.y = this.boardHeight;
     }
     return object;
+  }
+
+  hasOverlap(area, object) {
+    const xMin = area.x;
+    const xMax = area.x + area.size[0];
+    const yMin = area.y;
+    const yMax = area.y + area.size[1];
+    const corners = [[object.x, object.y], [(object.x + object.size[0]), object.y], [object.x, (object.y + object.size[1])], [(object.x + object.size[0]), (object.y + object.size[1])]];
+    let foundOverlap = false;
+    corners.forEach(function(corner){
+      if ((corner[0] >= xMin) && (corner[0] <= xMax) && (corner[1] >= yMin) && (corner[1] <= yMax)) {
+        foundOverlap = true;
+      }
+    });
+    return foundOverlap;
   }
 
   movePlayer(userInput, player) {
@@ -178,6 +193,15 @@ class Runaround {
     }, []);
   }
 
+  checkEnemyHit(level, bullets) {
+    // bullets = bullets.reduce((array, bullet) => {
+    //     if (this.hasOverlap())
+    //   }
+    //   return array;
+    // }, []);
+    return [level, bullets];
+  }
+
   drawGame(level, player, bullets, useSummary) {
     // drawLevel(level);
     // drawPlayer(player);
@@ -190,9 +214,6 @@ class Runaround {
       summary += `<p>Player bullets=${player.bullets}</p>`;
       summary += `<p>Player life=${player.life}<p>`;
       summary += `<p>Enemy count=${level.currentEnemies.length}</p>`;
-      if(bullets.length > 0) {
-        summary += `<p>Bullet0: x=${bullets[0].x}, y=${bullets[0].y} vx=${bullets[0].velocityX} vy=${bullets[0].velocityY}</p>`
-      }
       summary += `<p>Bullets=[${bullets.reduce((s, b) => { return s + `x=${b.x} y=${b.y}, `}, "")}]</p>`;
       return summary;
     }
