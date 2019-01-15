@@ -194,11 +194,19 @@ class Runaround {
   }
 
   checkEnemyHit(level, bullets) {
-    // bullets = bullets.reduce((array, bullet) => {
-    //     if (this.hasOverlap())
-    //   }
-    //   return array;
-    // }, []);
+    bullets = bullets.reduce((array, bullet) => {
+      let bulletHasHit = false;
+      for (let i = 0; i < level.currentEnemies.length; i++) {
+        if (this.hasOverlap(level.currentEnemies[i], bullet)) {
+          bulletHasHit = true;
+          level.currentEnemies[i].life -= bullet.strength;
+        }
+      }
+      if (!bulletHasHit) {
+        array.push(bullet);
+      }
+      return array;
+    }, []);
     return [level, bullets];
   }
 

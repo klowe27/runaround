@@ -121,5 +121,23 @@ describe('Runaround', function() {
         expect(runaround.hasOverlap(bullet, bullet2)).toEqual(true);
       });
     });
+
+    describe('checkEnemyHit', function() {
+      it('if bullet and enemy overlap, should reduce enemy strength and remove the bullet', function() {
+        level = runaround.spawnEnemies(level);
+        level.currentEnemies[0].life = 75;
+        level.currentEnemies[0].x = 500;
+        level.currentEnemies[0].y = 500;
+        let bullet = new Bullet();
+        bullet.x = 530;
+        bullet.y = 499;
+        bullet.strength = 20;
+        let bullets = [];
+        bullets.push(bullet);
+        [level, bullets] = runaround.checkEnemyHit(level, bullets);
+        expect(bullets).toEqual([]);
+        expect(level.currentEnemies[0].life).toEqual(55);
+      });
+    });
   });
 });
