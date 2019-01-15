@@ -29,7 +29,7 @@ class Runaround {
     player = this.checkPlayerHit(level, player);
     level = this.checkPlayerDeath(level, player);
     level = this.checkTime(level);
-    // level = this.checkExit(level, player);
+    [level, player] = this.checkExit(level, player);
 
     return [userInput, level, player, bullets];
   }
@@ -41,7 +41,7 @@ class Runaround {
   createLevel(level) {
     if (!level) {
       level = new Level();
-      level = Level.setDataById(0, level);
+      level.setDataById(0);
     }
     return level;
   }
@@ -65,9 +65,9 @@ class Runaround {
       (object.x > this.boardWidth) ||
       (object.y < 0) ||
       (object.y > this.boardHeight)) {
-        return false;
-      }
-      return true;
+      return false;
+    }
+    return true;
   }
 
   confineToBounds(object) {
@@ -154,8 +154,7 @@ class Runaround {
   }
 
   spawnEnemies(level) {
-    if((level.currentEnemies.length === 0)
-    && (level.enemies.length !== 0)) {
+    if((level.currentEnemies.length === 0) && (level.enemies.length !== 0)) {
       level.currentEnemies.push(level.enemies.pop());
     }
     return level;
@@ -208,13 +207,9 @@ class Runaround {
   }
 
   checkPlayerHit(level, player) {
-    // console.log("checkPlayerHit");
     for (let i = 0; i < level.currentEnemies.length; i++) {
-      // console.log("  player", player.x, player.y, player.size);
-      // console.log("  level.currentEnemies[i]", level.currentEnemies[i].x, level.currentEnemies[i].y, level.currentEnemies[i].size);
       if (this.hasOverlap(level.currentEnemies[i], player)) {
         player.life -= level.currentEnemies[i].strength;
-        console.log("  HIT life=", player.life);
       }
     }
     return player;
@@ -234,6 +229,19 @@ class Runaround {
     return level;
   }
 
+  checkExit(level, player) {
+    if((level.enemies.length === 0) && (level.currentEnemies.length === 0)) {
+      if(this.hasOverlap(player, level)) {
+        level.setDataById(level.id++);
+        player.x = 100;
+        player.y = 100;
+        player.directionX = 1;
+        player.directionY = 0;
+      }
+    }
+    return [level, player];
+  }
+
   drawGame(level, player, bullets, useSummary) {
     // drawLevel(level);
     // drawPlayer(player);
@@ -251,8 +259,8 @@ class Runaround {
       summary += `<p>Player life=${player.life}<p>`;
       summary += `<p>Enemies left=${level.enemies.length}</p>`;
       summary += `<p>Enemy count=${level.currentEnemies.length}</p>`;
-      summary += `<p>Enemies=[${level.currentEnemies.reduce((s, e) => { return s + `x=${e.x} y=${e.y}, `}, "")}]</p>`
-      summary += `<p>Bullets=[${bullets.reduce((s, b) => { return s + `x=${b.x} y=${b.y}, `}, "")}]</p>`;
+      summary += `<p>Enemies=[${level.currentEnemies.reduce((s, e) => { return s + `x=${e.x} y=${e.y}, `;}, "")}]</p>`;
+      summary += `<p>Bullets=[${bullets.reduce((s, b) => { return s + `x=${b.x} y=${b.y}, `;}, "")}]</p>`;
       return summary;
     }
   }

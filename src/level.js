@@ -3,10 +3,12 @@ import { Enemy } from './enemy.js';
 class Level {
   constructor() {
     this.id = 0;
-    this.exitX = 0;
-    this.exitY = 0;
+    this.x = 0;
+    this.y = 0;
+    this.size = [0, 0];
     this.timeLeft = 0;
     this.gameOver = false;
+    this.youWon = false;
     this.enemies = [];
     this.currentEnemies = [];
 
@@ -15,29 +17,35 @@ class Level {
     }, 1000);
   }
 
-  static setDataById(id, level) {
+  setDataById(id) {
     switch(id) {
     case 0:
-      level.id = id;
-      level.exitX = 1000;
-      level.exitY = 500;
-      level.timeLeft = 180;
-      level.gameOver = false;
-      level.enemies = [new Enemy(0), new Enemy(0), new Enemy(0)];
-      level.currentEnemies = [];
+      this.id = id;
+      this.x = 990;
+      this.y = 480;
+      this.size = [10, 40];
+      this.timeLeft = 180;
+      this.gameOver = false;
+      this.youWon = false;
+      this.enemies = [new Enemy(0), new Enemy(0), new Enemy(0)];
+      this.currentEnemies = [];
       break;
-    case 1:
-      level.id = id;
-      level.exitX = 1000;
-      level.exitY = 500;
-      level.timeLeft = 180;
-      level.gameOver = false;
-      level.enemies = [new Enemy(0), new Enemy(0), new Enemy(0)];
-      level.currentEnemies = [];
+    // case 1:
+    //   this.id = id;
+    //   this.x = 990;
+    //   this.y = 480;
+    //   this.size = [10, 40];
+    //   this.timeLeft = 180;
+    //   this.gameOver = false;
+    //   this.youWon = false;
+    //   this.enemies = [new Enemy(0), new Enemy(0), new Enemy(0)];
+    //   this.currentEnemies = [];
+    //   break;
+    default:
+      this.youWon = true;
+      console.log("YOU WON!!!!!!");
       break;
     }
-
-    return level;
   }
 }
 

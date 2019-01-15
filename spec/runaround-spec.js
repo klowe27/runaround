@@ -33,8 +33,8 @@ describe('Runaround', function() {
     describe('createLevel', function(){
       it('should create a new level and update properties', function() {
         expect(level.id).toEqual(0);
-        expect(level.exitX).toEqual(1000);
-        expect(level.exitY).toEqual(500);
+        expect(level.x).toEqual(990);
+        expect(level.y).toEqual(480);
         expect(level.timeLeft).toEqual(180);
         expect(level.gameOver).toEqual(false);
         expect(level.enemies.length).toEqual(3);
@@ -198,5 +198,20 @@ describe('Runaround', function() {
         expect(level.gameOver).toEqual(true);
       });
     });
+
+    // describe('checkExit', function() {
+    //   it('it should update the level if the player is at the exit', function() {
+    //     level.id = 0;
+    //     level.enemies = [];
+    //     level.currentEnemies = [];
+    //     level.x = 990;
+    //     level.y = 480;
+    //     level.size = [10, 40];
+    //     player.x = 995;
+    //     player.y = 500;
+    //     level = runaround.checkExit(level);
+    //     expect(level.id).toEqual(1);
+    //   });
+    // });
   });
 });
