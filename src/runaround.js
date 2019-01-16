@@ -235,11 +235,12 @@ class Runaround {
   checkExit(level, player) {
     if((level.enemies.length === 0) && (level.currentEnemies.length === 0)) {
       if(this.hasOverlap(player, level)) {
-        level.setDataById(level.id++);
         player.x = 100;
         player.y = 100;
         player.directionX = 1;
         player.directionY = 0;
+        let id = level.id + 1;
+        level.setDataById(id);
       }
     }
     return [level, player];
@@ -285,9 +286,6 @@ class Runaround {
       summary += `<p>Bullets: ${player.bullets}</p>`;
       summary += `<p>Enemies: ${level.enemies.length}</p>`;
       summary += `<p class="double">Time: ${level.timeLeft}</p>`;
-      // if(level.gameOver) {
-      //   summary += `<p>GAME OVER</p>`;
-      // }
       return summary;
     }
   }

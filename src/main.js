@@ -12,6 +12,8 @@ $(document).ready(function() {
   var runaround = new Runaround();
   let output = document.getElementById('output');
   let board = document.getElementById('board');
+  let gameOver = document.getElementById('game-over');
+  let gameWon = document.getElementById('game-won');
   board.width = runaround.boardWidth;
   board.height = runaround.boardHeight;
   let ctx = board.getContext('2d');
@@ -32,6 +34,12 @@ $(document).ready(function() {
     let summary = runaround.drawGame(ctx, images, runaround.level, runaround.player, runaround.bullets, true);
     if(output) {
       output.innerHTML = summary;
+    }
+    if(runaround.level.gameOver) {
+      console.log("over", level);
+      gameOver.style.display = 'block';
+    } else if(runaround.level.youWon) {
+      gameWon.style.display = 'block';
     }
   }, interval);
 

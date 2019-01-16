@@ -47,3 +47,11 @@ html body {
   font-size: 1.6em;
   color: #fff;
 }
+
+#game-over,#game-won {
+  display: none;
+  font-size: 7.0rem;
+  color: #ff0000;
+  position: fixed;
+  top: 45%;
+}
