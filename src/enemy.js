@@ -30,9 +30,9 @@ class Enemy {
   getStrengthByType(type) {
     switch(type) {
     case 0:
-      return 20;
+      return 1;
     default:
-      return 20;
+      return 1;
     }
   }
 

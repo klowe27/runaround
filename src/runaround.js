@@ -255,6 +255,13 @@ class Runaround {
     level.currentEnemies.forEach(function(enemy) {
       ctx.drawImage(images.enemy, enemy.x, enemy.y, enemy.size[0], enemy.size[1]);
     });
+    if ((level.enemies.length === 0) && (level.currentEnemies.length === 0)) {
+      const sizeX = level.size[0];
+      const sizeY = level.size[1] / 3;
+      ctx.drawImage(images.rock, level.x, level.y, sizeX, 2 * sizeY);
+      ctx.drawImage(images.rock, level.x, level.y + sizeY, sizeX, 2 * sizeY);
+      ctx.drawImage(images.rock, level.x, level.y + (2 * sizeY), sizeX, 2 * sizeY);
+    }
   }
 
   drawPlayer(ctx, images, player) {

@@ -18,36 +18,34 @@ class Level {
   }
 
   setDataById(id) {
-    switch(id) {
-    case 0:
+    if(id == 0) {
       this.id = id;
       this.x = 990;
-      this.y = 480;
-      this.size = [10, 40];
+      this.y = 380;
+      this.size = [40, 100];
       this.timeLeft = 180;
       this.gameOver = false;
       this.youWon = false;
       this.enemies = [];
-      for(let i = 0; i < 10; i++) {
+      for(let i = 0; i < 1; i++) {
         this.enemies.push(new Enemy(0));
       }
       this.currentEnemies = [];
-      break;
-    // case 1:
-    //   this.id = id;
-    //   this.x = 990;
-    //   this.y = 480;
-    //   this.size = [10, 40];
-    //   this.timeLeft = 180;
-    //   this.gameOver = false;
-    //   this.youWon = false;
-    //   this.enemies = [new Enemy(0), new Enemy(0), new Enemy(0)];
-    //   this.currentEnemies = [];
-    //   break;
-    default:
+    } else if(id == 1) {
+      this.id = id;
+      this.x = 990;
+      this.y = 380;
+      this.size = [40, 100];
+      this.timeLeft = 180;
+      this.gameOver = false;
+      this.youWon = false;
+      this.enemies = [];
+      for(let i = 0; i < 1; i++) {
+        this.enemies.push(new Enemy(0));
+      }
+      this.currentEnemies = [];
+    } else {
       this.youWon = true;
-      console.log("YOU WON!!!!!!");
-      break;
     }
   }
 }
