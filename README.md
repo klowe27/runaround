@@ -1,17 +1,17 @@
-# Template
+# The Runaround
 
 #### JavaScript with Webpack, 1.7.19
 
-#### By Kristin Brewer-Lowe
+#### By Kristin Brewer-Lowe and Phil Mass
 
 ## Description
 
-Template for JavaScript with Webpack.
+A fun little two-level game, where the player has to kill all their enemenies before time runs out.
 
 
 ## Setup/Installation Requirements
 
-* In the command line, clone this repository with $ git clone https://github.com/klowe27/practice
+* In the command line, clone this repository with $ git clone https://github.com/klowe27/runaround
 * Navigate into the directory and use command $npm install
 * To open the application in Chrome, use command $ npm run start
 * To run the test suite, use command $ npm test
